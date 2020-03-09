@@ -1,5 +1,6 @@
 // Base a ser utilizada
-const alunosDaEscola=[{nome:"Henrique",notas:[],cursos:[],faltas:5},
+const alunosDaEscola=[
+{nome:"Henrique",notas:[],cursos:[],faltas:5},
 {nome:"Edson",notas:[],cursos:[],faltas:2},
 {nome:"Bruno",notas:[10,9.8,9.6],cursos:[],faltas:0},
 {nome:"Guilherme",notas:[10,9.8,9.6],cursos:[{nomeDoCurso:"Full Stack",dataMatricula:new Date}],faltas:0},
@@ -95,16 +96,29 @@ const alunosDaEscola=[{nome:"Henrique",notas:[],cursos:[],faltas:5},
             /*Ao receber um aluno devidamente cadastrado em nossa lista, deverá dizer se o mesmo está aprovado ou não. 
             Os critérios de aprovação são: ter no máximo 3 faltas e média 7 em notas.
             Só o aluno só poderá ser aprovado se o mesmo tiver matriculado em um curso.*/
-            let somatoria = aluno.notas.reduce((acum, valor) => {
-                return acum + valor
-            })
-            let media = somatoria / 3
+            
             if(aluno.cursos.length != 0){
+                let somatoria = aluno.notas.reduce((acum, valor) => {
+                    return acum + valor
+                })
+                let media = somatoria / 3
+
                 if(media >= 7 && aluno.faltas <= 3){
-                console.log(`O aluno *${aluno.nome}* foi aprovada no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* com uma média de *${media.toFixed(2)}*`) 
+                console.log(`O aluno *${aluno.nome}* foi aprovada no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* com uma média de *${media.toFixed(2)}*, e com um total de *${aluno.faltas}* faltas!`) 
                 } else {
-                console.log(`O aluno *${aluno.nome}* não foi aprovado no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* pois sua média foi de *${media.toFixed(2)}*, com um total de *${aluno.faltas}* faltas!`) 
+                    if(media < 7 && aluno.faltas > 3){
+                console.log(`O aluno *${aluno.nome}* não foi aprovado no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* pois sua média foi de *${media.toFixed(2)}*, com um total de *${aluno.faltas}* faltas, não atendendo os critérios de aprovação!`); 
+                    } else {
+                        if(media < 7){
+                        console.log(`O aluno *${aluno.nome}* não foi aprovado no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* pois sua média foi de *${media.toFixed(2)}, não atingindo a nota mínima necessária*`)
+                        } else {
+                            console.log(`O aluno *${aluno.nome}* não foi aprovado no curso *${aluno.cursos[aluno.cursos.length-1].nomeDoCurso}* pois teve um total de *${aluno.faltas}* faltas, uma quantidade maior do que a permitida!`)  
+                        }
+                    }
                 }
-            } else{
-            console.log(`O aluno *${aluno.nome}* não está matriculado em nenhum curso. Não será possivel avaliar sua aprovacão!`)
+            } else {
+            console.log(`O aluno *${aluno.nome}* não está matriculado em nenhum curso. Não será possivel avaliar sua aprovação!`)
             }}
+
+
+
